@@ -31,4 +31,41 @@ public class JobTest {
 
         assertFalse(job1.equals(job2));
     }
+
+    @Test
+    public void testToStringStartsAndEndsWithNewLine() {
+        Job job = new Job();
+        String jobString = job.toString();
+        String[] lines = jobString.split(System.lineSeparator());
+
+        assertEquals("", lines[0]);  // First line should be empty
+        assertEquals("Core Competency: Data not available", lines[lines.length - 1]);  // Last line should be empty
+    }
+
+    @Test
+    public void testToStringContainsCorrectLabelsAndData() {
+        Job job = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+        String jobString = job.toString();
+
+        assertTrue(jobString.contains("ID: " + job.getId()));
+        assertTrue(jobString.contains("Name: Product tester"));
+        assertTrue(jobString.contains("Employer: ACME"));
+        assertTrue(jobString.contains("Location: Desert"));
+        assertTrue(jobString.contains("Position Type: Quality control"));
+        assertTrue(jobString.contains("Core Competency: Persistence"));
+    }
+
+    @Test
+    public void testToStringHandlesEmptyField() {
+        Job job = new Job("", new Employer(""), new Location(""), new PositionType(""), new CoreCompetency(""));
+        String jobString = job.toString();
+
+        assertTrue(jobString.contains("Name: Data not available"));
+        assertTrue(jobString.contains("Employer: Data not available"));
+        assertTrue(jobString.contains("Location: Data not available"));
+        assertTrue(jobString.contains("Position Type: Data not available"));
+        assertTrue(jobString.contains("Core Competency: Data not available"));
+    }
+
+
 }
