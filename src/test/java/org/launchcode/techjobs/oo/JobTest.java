@@ -41,10 +41,12 @@ public class JobTest {
     public void testToStringStartsAndEndsWithNewLine() {
         Job job = new Job();
         String jobString = job.toString();
-        String[] lines = jobString.split(System.lineSeparator());
 
-        assertEquals("", lines[0]);  // First line should be empty
-        assertEquals("Core Competency: Data not available", lines[lines.length - 1]);  // Last line should be empty
+        // Check if the string starts with a new line
+        assertTrue(jobString.startsWith(System.lineSeparator()));
+
+        // Check if the string ends with a new line
+        assertTrue(jobString.endsWith(System.lineSeparator()));
     }
 
     @Test
